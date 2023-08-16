@@ -1,0 +1,23 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_ENV=gurkirat&&nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "config": "^3.3.9",
+    "express": "^4.18.2",
+    "joi": "^17.9.2",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.4.3",
+    "mysql2": "^3.6.0",
+    "nodemon": "^3.0.1"
+  }
+}
