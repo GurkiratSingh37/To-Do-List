@@ -1,0 +1,21 @@
+{
+    "PORT": "3000",
+    "selectedDb": "mongodb",
+    "databaseSettings":{
+        "mysql": {
+            "master":{
+                "host": "localhost",
+                "user": "root",
+                "password": "",
+                "database": "to_do_list",
+                "namedPlaceholders": true
+            }
+        },
+        "mongodb": {
+            "master":{
+                "url": "mongodb+srv://sgurkirat3788:Qwertyasd123@cluster0.x3yrlvl.mongodb.net/",
+                "database": "to_do_list"
+            }
+        }
+    }
+}
