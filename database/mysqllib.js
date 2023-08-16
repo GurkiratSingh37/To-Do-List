@@ -1,15 +1,9 @@
 
 const mysql = require('mysql2');
 
-const initialize=async() => {
+const initialize = async (config) => {
     let numConnectionsInPool = 0;
-    let conn=mysql.createPool({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'to_do_list',
-        namedPlaceholders: true
-    }).promise();
+    let conn=mysql.createPool(config).promise();
 
     conn.on('connection', function (connection) {
         numConnectionsInPool++;

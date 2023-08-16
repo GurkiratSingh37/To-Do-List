@@ -1,15 +1,11 @@
 
 const mysqllib = require('./mysqllib');
 const mongoCon = require('./mongodlib');
+const dbProperties = require('./dbProperties');
 
 async function initialize(selectedDb) {
-    if(selectedDb === 'mysql'){
-        console.log('inside')
-        global.mysqlCon = await mysqllib.initialize();
-    } 
-    else{
-        global.mongoCon = mongoCon.mongoConnect;
-    }
+        // global.mysqlCon = await mysqllib.initialize(dbProperties.mysql.master);
+        global.mongoCon = await mongoCon.mongoConnect(dbProperties.mongodb.master);
 }
 
 exports.initialize                  = initialize;
