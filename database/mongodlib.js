@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
-// const client = new MongoClient('mongodb+srv://sgurkirat3788:Qwertyasd123@cluster0.x3yrlvl.mongodb.net/');
+// const client = new MongoClient('');
 // const database = 'to_do_list';
 
 let _db;
@@ -34,15 +34,15 @@ exports.getDb=getDb;
 
 
 /*
-const url = 'mongodb+srv://sgurkirat3788:Qwertyasd123@cluster0.x3yrlvl.mongodb.net/';
-const database = 'to_do_list';
+const url = '';
+const database = '';
 const client = new MongoClient(url);
 
 const mongoConnect = callback => {
-    MongoClient.connect('mongodb+srv://sgurkirat3788:Qwertyasd123@cluster0.x3yrlvl.mongodb.net/')
+    MongoClient.connect('')
     .then(result => {
         console.log('Connected');
-        _db=result.db('to_do_list');
+        _db=result.db('');
         callback(result);
     })
     .catch(err=>{
@@ -70,7 +70,7 @@ mongoConnect( ()=>{
     console.log('Connected');
 
     let db=result.db(database);
-    let collection=db.collection('list_data');
+    let collection=db.collection('');
 
     return collection;
     
