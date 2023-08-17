@@ -1,20 +1,19 @@
 "use strict";
 
 const todoService = require('../services/todoService');
+const responses = require('../../../responses/responses');
 
 exports.getList = async (req, res, next) => {
-    req.apiReference = {
-        module: 'todo',
-        api : 'getList'
-    }
+    let apiReference = req.apiReference;
 
     try{
-        const response = await todoService.getList(req.apiReference);
+        let queryParams   = { ...req.query }; // params: limit & page
+
+        const response = await todoService.getList(apiReference, queryParams);
 
         if(response.success){
-            // return {res}
-            res.status(200).send(response.data);
-            // res.send(res, response.data);
+            return responses.success(res, response.data);
+            // res.status(200).send(response.data);
         }
         
     } 
@@ -30,11 +29,9 @@ exports.createItem = async (req, res, next) => {
         const item=req.body.item;
         const response = await todoService.createItem(apiReference, item);
         if(response.success){
-            res.status(201).send(response);
+            return responses.success(res, response.data);
         }
-        else{
-            res.status(401).send(response);
-        }
+            return responses.failure(res, response.error);
         
     }
     catch(error){
@@ -55,7 +52,7 @@ exports.updateItem = async (req, res, next) => {
 
         const response = await todoService.updateItem(apiReference, values);
         if(response.success){
-            res.status(200).send(response);
+            return responses.success(res, response.data);
         }
     }
     catch(error){
@@ -72,7 +69,7 @@ exports.deleteItem = async (req, res, next) => {
         const response = await todoService.deleteItem(apiReference, present);
 
         if(response.success){
-            res.status(200).send(response);
+            return responses.success(res, response.data);
         }
     }
     catch(error){

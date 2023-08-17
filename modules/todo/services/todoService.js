@@ -6,16 +6,34 @@ const logging = require('../../../logging/logging');
 
 const selectedDb=envProperties.selectedDb;
 
-exports.getList= async(apiReference) => {
+exports.getList= async(apiReference, queryParams) => {
     let response = { success: false };
 
     if(selectedDb === 'mysql'){
         let getResponse = await todoDao.getList(apiReference);
+
+        if(!getResponse.success){
+            return getResponse;
+        }
+
         logging.log(apiReference, {EVENT: "getList - todoService-mysql", RESPONSE: getResponse});
         // console.log('getResponse - todoService', getResponse);
+
+        //------------- PAGINATION ---------------------
+        const totalItems = getResponse.data.length;
+        const page = queryParams.page;
+        const limit = queryParams.limit;
+
+        // calculating the starting and ending index
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        let results={};
+
+        results=getResponse.data.slice(startIndex, endIndex);
         
         response.success = true;
-        response.data = getResponse;
+        response.data = results;
         return response; 
     }
     else{
@@ -23,8 +41,21 @@ exports.getList= async(apiReference) => {
         logging.log(apiReference, {EVENT: "getList - todoService-mongodb", RESPONSE: getResponse});
         // console.log('getResponse - todoService', getResponse);
         
+        //------------- PAGINATION ---------------------
+        const totalItems = getResponse.data.length;
+        const page = queryParams.page;
+        const limit = queryParams.limit;
+
+        // calculating the starting and ending index
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const results={};
+
+        results=getResponse.data.slice(startIndex, endIndex);
+        
         response.success = true;
-        response.data = getResponse;
+        response.data = results;
         return response; 
     }
        

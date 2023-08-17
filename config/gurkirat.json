@@ -1,6 +1,6 @@
 {
     "PORT": "3000",
-    "selectedDb": "mongodb",
+    "selectedDb": "mysql",
     "databaseSettings":{
         "mysql": {
             "master":{
