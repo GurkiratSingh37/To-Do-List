@@ -6,7 +6,8 @@ exports.modules = {
 
 exports.responseMessages = {
     SUCCESS: "Success",
-    FAILURE: "Failure"
+    FAILURE: "Failure",
+    USER_ALREADY_REGISTERED: "User already registered with us. Try signing in",
 }
 
 exports.responseStatus = {

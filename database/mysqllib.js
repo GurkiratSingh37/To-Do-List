@@ -48,17 +48,3 @@ const executeQuery = async(apiReference, event, queryString, params) => {
 
 exports.initialize                  = initialize;
 exports.executeQuery                = executeQuery;
-
-/*
-const mysql = require('mysql2');
-
-const pool=mysql.createPool({  // i want pool of connections to run multiple queries cause each query needs it's own connection
-        host: '',
-        user: '',
-        password: '',
-        database: '',
-        namedPlaceholders: true
-});
-    
-exports.pool=pool.promise();
-*/

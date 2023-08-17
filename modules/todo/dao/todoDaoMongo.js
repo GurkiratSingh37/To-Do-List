@@ -7,9 +7,14 @@ exports.getList= async(apiReference) => {
     let db=getDb();
     let collection=db.collection('list_data');
     
-    let queryResponse=await collection.find({}).toArray();
+    let queryResponse=await collection.find({'ACTIVITY_STATUS_CODE': '30'}).toArray();
     logging.log(apiReference, {EVENT: "get List - mongodb", RESPONSE: queryResponse});
-    // console.log(queryResponse);
+
+    if(queryResponse.ERROR){
+        response.success = false;
+        response.error = queryResponse.ERROR;
+        return response;
+    }
 
     response.success = true;
     response.data    = queryResponse;
@@ -17,15 +22,14 @@ exports.getList= async(apiReference) => {
     return response;
 }
 
-exports.checkIfPresent= async(apiReference, item) => {
+exports.checkIfPresent= async(apiReference, values) => {
     let response = { success : false };
 
     let db=getDb();
     let collection=db.collection('list_data');
 
-    let queryResponse=await collection.find({'list_name':item}).toArray();
+    let queryResponse=await collection.find({'list_name':values, 'ACTIVITY_STATUS_CODE': '30'}).toArray();
     logging.log(apiReference, {EVENT: "To check if it is present in the list already. MongoDao", RESPONSE: queryResponse});
-    // console.log("To check if it is present in the list already: ",queryResponse);
 
     if(queryResponse.length === 0){
         return response;
@@ -39,15 +43,20 @@ exports.checkIfPresent= async(apiReference, item) => {
 
 }
 
-exports.createItem= async(apiReference, item) => {
+exports.createItem= async(apiReference, values) => {
     let response = { success : false };
 
     let db=getDb();
     let collection=db.collection('list_data');
     
-    let queryResponse=await collection.insertOne({'list_name':item});
+    let queryResponse=await collection.insertOne({'list_name':values, 'ACTIVITY_STATUS_CODE':"30"});
     logging.log(apiReference, {EVENT: "todoDao Create Item MongoDao", RESPONSE: queryResponse});
-    // console.log("todoDao Create Item:",queryResponse);
+
+    if(queryResponse.ERROR){
+        response.success = false;
+        response.error = queryResponse.ERROR;
+        return response;
+    }
 
     response.success = true;
     response.data    = queryResponse;
@@ -62,9 +71,14 @@ exports.updateItem= async(apiReference, values) => {
     let db=getDb();
     let collection=db.collection('list_data');
     
-    let queryResponse=await collection.updateOne({'list_name':values[1]},{$set:{'list_name':values[0]}});
+    let queryResponse=await collection.updateOne({'list_name':values[1], 'ACTIVITY_STATUS_CODE': '30'},{$set:{'list_name':values[0]}});
     logging.log(apiReference, {EVENT: "todoDao Update Item MongoDao", RESPONSE: queryResponse});
-    // console.log("todoDao Update Item:",queryResponse);
+
+    if(queryResponse.ERROR){
+        response.success = false;
+        response.error = queryResponse.ERROR;
+        return response;
+    }
 
     response.success = true;
     response.data    = queryResponse;
@@ -72,15 +86,21 @@ exports.updateItem= async(apiReference, values) => {
     return response;
 }
 
-exports.deleteItem = async (apiReference, value) =>{
+exports.deleteItem = async (apiReference, values) =>{
     let response = { success : false };
 
    let db=getDb();
     let collection=db.collection('list_data');
     
-    let queryResponse=await collection.deleteOne({'list_name':value});
+    // let queryResponse=await collection.deleteOne({'list_name':values});
+    let queryResponse=await collection.updateOne({'list_name':values, 'ACTIVITY_STATUS_CODE': '30'},{$set:{'ACTIVITY_STATUS_CODE':'90'}});
     logging.log(apiReference, {EVENT: "todoDao delete Item MongoDao", RESPONSE: queryResponse});
-    // console.log("todoDao delete Item:",queryResponse);
+
+    if(queryResponse.ERROR){
+        response.success = false;
+        response.error = queryResponse.ERROR;
+        return response;
+    }
 
     response.success = true;
     response.data    = queryResponse;

@@ -20,19 +20,10 @@ const modules = {
 }
 
 const log = (apiReference, log) =>{
-    // console.log('--------------------------');
-    // console.log(apiReference);
-    // console.log(apiReference.module);
-    // console.log(apiReference.api);
-    // console.log(modules[apiReference.module]);
-    // console.log(modules[apiReference.module][apiReference.api]);
-    // console.log(modules[apiReference.module][apiReference.api]==true);
-    // console.log('--------------------------');
 
     if(apiReference && apiReference.module && apiReference.api && fileSwitches && fileSwitches[apiReference.module] == true 
         && modules && modules[apiReference.module] && modules[apiReference.module][apiReference.api] == true){
 
-        // console.log("YESDDASssssss loggg");
         try{
             log = JSON.stringify(log);
         }
