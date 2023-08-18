@@ -1,11 +1,14 @@
 
 const mysqllib = require('./mysqllib');
-const mongoCon = require('./mongodlib');
+const mongolib = require('./mongolib');
+const redislib = require('./redislib');
 const dbProperties = require('./dbProperties');
 
 async function initialize(selectedDb) {
-        // global.mysqlCon = await mysqllib.initialize(dbProperties.mysql.master);
-        global.mongoCon = await mongoCon.mongoConnect(dbProperties.mongodb.master);
+        global.mysqlCon = await mysqllib.initialize(dbProperties.mysql.master);
+        // global.mongolib = await mongolib.mongoConnect(dbProperties.mongodb.master);
+
+        global.redisCon = await redislib.initialize(dbProperties.redisdb.master);
 }
 
 exports.initialize                  = initialize;

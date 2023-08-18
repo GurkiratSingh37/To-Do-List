@@ -10,7 +10,8 @@ exports.getList= async(apiReference, values) => {
     let response = { success: false };
 
     if(selectedDb === 'mysql'){
-        let getResponse = await todoDao.getList(apiReference);
+
+        let getResponse = await todoDao.getList(apiReference, values);
 
         if(!getResponse.success){
             return getResponse;
@@ -18,21 +19,10 @@ exports.getList= async(apiReference, values) => {
 
         logging.log(apiReference, {EVENT: "getList - todoService-mysql", RESPONSE: getResponse});
 
-        //------------- PAGINATION ---------------------
-        const totalItems = getResponse.data.length;
-        const page = values.page;
-        const limit = values.limit;
+        //PAGINATION INSIDE THE CODE - the code for that is in notes of Pagination.
 
-        // calculating the starting and ending index
-        const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
-
-        let results={};
-
-        results=getResponse.data.slice(startIndex, endIndex);
-        
         response.success = true;
-        response.data = results;
+        response.data = getResponse;
         return response; 
     }
     else{

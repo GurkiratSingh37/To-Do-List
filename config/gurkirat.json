@@ -1,6 +1,6 @@
 {
     "PORT": "3000",
-    "selectedDb": "mongodb",
+    "selectedDb": "mysql",
     "databaseSettings":{
         "mysql": {
             "master":{
@@ -15,6 +15,14 @@
             "master":{
                 "url": "mongodb+srv://sgurkirat3788:Qwertyasd123@cluster0.x3yrlvl.mongodb.net/",
                 "database": "to_do_list"
+            }
+        },
+        "redis":{
+            "master":{
+                "host"      : "localhost",
+                "port"      : "6379",
+                "password"  : "",
+                "prefix"    : "DEV-"
             }
         }
     }

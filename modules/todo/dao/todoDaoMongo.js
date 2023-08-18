@@ -1,4 +1,4 @@
-const { getDb } = require('../../../database/mongodlib');
+const { getDb } = require('../../../database/mongolib');
 const logging = require('../../../logging/logging');
 
 exports.getList= async(apiReference) => {

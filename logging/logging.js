@@ -4,7 +4,9 @@ const moment = require('moment');
 
 const fileSwitches = {
     startup : true,
-    todo    : true
+    todo    : true,
+    register: true,
+    login   : true
 };
 
 const modules = {
@@ -16,6 +18,12 @@ const modules = {
         createItem  : true,
         updateItem  : true,
         deleteItem  : true
+    },
+    register: {
+        register    : true
+    },
+    login: {
+        login       : true
     }
 }
 

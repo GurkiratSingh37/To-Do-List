@@ -11,7 +11,7 @@ const getList= async (req, res, next)=>{
     }
 
     const schema = Joi.object({
-        page: Joi.number().optional(),
+        offset: Joi.number().optional(),
         limit: Joi.number().optional()
     });
 

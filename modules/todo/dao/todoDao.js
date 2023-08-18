@@ -3,11 +3,16 @@ const dbHandler = require('../../../database/mysqllib');
 const logging = require('../../../logging/logging');
 const constants = require('../../../responses/responseConstants')
 
-exports.getList= async(apiReference) => {
+exports.getList= async(apiReference, values) => {
     let response = { success : false };
-    const query = `SELECT * FROM list_data WHERE ACTIVITY_STATUS_CODE='30';`;
+    const query = `SELECT * FROM list_data ORDER BY id LIMIT ? OFFSET ?`;
 
-    let queryResponse = await dbHandler.executeQuery(apiReference, 'getList- fetch list', query, '');
+    const val=[];
+
+    val.push(parseFloat(values.limit));
+    val.push(parseFloat(values.offset));
+
+    let queryResponse = await dbHandler.executeQuery(apiReference, 'getList- fetch list', query, val);
     if(queryResponse.ERROR){
         response.data    = queryResponse.ERROR;
     
