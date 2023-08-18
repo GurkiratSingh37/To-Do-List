@@ -5,7 +5,7 @@ const constants = require('../../../responses/responseConstants')
 
 exports.getList= async(apiReference, values) => {
     let response = { success : false };
-    const query = `SELECT * FROM list_data ORDER BY id LIMIT ? OFFSET ?`;
+    const query = `SELECT * FROM list_data WHERE ACTIVITY_STATUS_CODE = '30' ORDER BY id LIMIT ? OFFSET ?`;
 
     const val=[];
 

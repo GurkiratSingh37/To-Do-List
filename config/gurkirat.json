@@ -18,12 +18,10 @@
             }
         },
         "redis":{
-            "master":{
                 "host"      : "localhost",
                 "port"      : "6379",
                 "password"  : "",
                 "prefix"    : "DEV-"
-            }
         }
     }
 }

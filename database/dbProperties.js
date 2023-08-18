@@ -20,10 +20,8 @@ exports.mongodb = {
 }
 
 exports.redisdb = {
-    master:{
-        host        : process.env.REDIS_PORT  || config.get('databaseSettings.redis.master.host'),
-        port        : process.env.REDIS_HOST  || config.get('databaseSettings.redis.master.port'),
-        password    : process.env.REDIS_PWD   || config.get('databaseSettings.redis.master.password'),
-        prefix      : process.env.REDIS_PFIX  || config.get('databaseSettings.redis.master.prefix')
-    }
+        host        : process.env.REDIS_PORT  || config.get('databaseSettings.redis.host'),
+        port        : process.env.REDIS_HOST  || config.get('databaseSettings.redis.port'),
+        password    : process.env.REDIS_PWD   || config.get('databaseSettings.redis.password'),
+        prefix      : process.env.REDIS_PFIX  || config.get('databaseSettings.redis.prefix')
 }

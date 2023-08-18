@@ -2,14 +2,21 @@
 const mysql = require('mysql2');
 const logging = require('../logging/logging');
 
-const initialize = async (config) => {
+const initialize = async (apiReference, config) => {
     let numConnectionsInPool = 0;
+
+    logging.log(apiReference, "STARTING MYSQL CONNECTION @ ");
     let conn=mysql.createPool(config).promise();
 
     conn.on('connection', function (connection) {
         numConnectionsInPool++;
         console.log('CONNECTION IN POOL : ', numConnectionsInPool);
     });
+
+    conn.on('error', function(error){
+        logging.logError(apiReference, {EVENT : "MYSQL_CONN_ERROR",  ERROR : error});
+        return initialize(apiReference, config); // Try again!!!
+    })
 
     return conn;
 }

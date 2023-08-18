@@ -2,8 +2,7 @@ const asyncredis = require('async-redis');
 const dbProperties = require('./dbProperties');
 const logging = require('../logging/logging');
 
-// let PREFIX = dbProperties.redisdb.master.prefix;
-PREFIX = "DEV-";
+let PREFIX = dbProperties.redisdb.prefix;
 
 const initialize = async(apiReference, config)=>{
     const client = asyncredis.createClient({
@@ -18,7 +17,7 @@ const initialize = async(apiReference, config)=>{
         logging.logError(apiReference, {EVENT : "REDIS ERROR OCCURRED",  ERROR : error});
     });
 
-    // PREFIX = config.prefix;
+    PREFIX = config.prefix;
     
     logging.log(apiReference, "REDIS CONNECTED @ ");
     return client;
