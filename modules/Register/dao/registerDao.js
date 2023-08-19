@@ -29,11 +29,17 @@ exports.register = async(apiReference, valuesObj) => {
     let response = {success: false};
     logging.log(apiReference, {"EVENT" : "insertDetails DAO", valuesObj});
 
-    let query = `INSERT INTO users (USER_EMAIL_ID, USER_PASSWORD) VALUES (?, ?)`;
-    let values = [];
+    console.log('');
+
+    let query = `INSERT INTO users (USER_EMAIL_ID, USER_PASSWORD, FIRST_NAME, LAST_NAME) VALUES (?, ?, ?, ?)`;
+    
+    let values=[];
+    /** let values = Object.values(valuesObj); */ // Can use this but the ordering should be right
 
     values.push(valuesObj.emailId);
-    values.push(valuesObj.password); // In 
+    values.push(valuesObj.password);
+    values.push(valuesObj.firstName);
+    values.push(valuesObj.lastName);
 
     let queryResponse = await dbHandler.executeQuery(apiReference, "Fetch Credentials", query, values);
 

@@ -5,6 +5,8 @@ const passwordService = require('../../../services/pwdServices');
 const registerDao = require('../dao/registerDao');
 const constants = require('../../../responses/responseConstants');
 
+const sendingMails = require('../../../services/mailService');
+
 exports.register = async(apiReference, values)=>{
     let response = {
         success: false
@@ -37,7 +39,11 @@ exports.register = async(apiReference, values)=>{
         response.is_duplicate = insertDaoResponse.is_duplicate;
         return response;
     }
+
+    sendingMails.sendingMails(values.emailId, values.firstName, values.lastName);
     
     response.success = true;
     return response;
 }
+
+

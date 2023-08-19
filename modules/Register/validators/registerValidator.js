@@ -13,6 +13,8 @@ const register = async (req, res, next)=>{
     }
 
     let schema = Joi.object({
+        firstName   : Joi.string().required(),
+        lastName    : Joi.string().required(),
         emailId     : Joi.string().required(),
         password    : Joi.string().required()
     })
