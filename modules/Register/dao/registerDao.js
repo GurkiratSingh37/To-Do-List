@@ -7,7 +7,7 @@ exports.fetchDetails = async(apiReference, valuesObj) =>{
     let response = {success: false};
     logging.log(apiReference, {"EVENT" : "fetchDetails DAO", valuesObj});
 
-    let query = `SELECT * FROM users WHERE USER_EMAIL_ID = ?`;
+    let query = `SELECT * FROM users WHERE email_id = ?`;
     let values=[];
 
     values.push(valuesObj.emailId);
@@ -31,15 +31,19 @@ exports.register = async(apiReference, valuesObj) => {
 
     console.log('');
 
-    let query = `INSERT INTO users (USER_EMAIL_ID, USER_PASSWORD, FIRST_NAME, LAST_NAME) VALUES (?, ?, ?, ?)`;
+    let query = `INSERT INTO users SET ?`;
     
-    let values=[];
-    /** let values = Object.values(valuesObj); */ // Can use this but the ordering should be right
+    
+    /** let values = Object.values(valuesObj); */ // Can use this but the ordering should be right in the database
+    // OR i can map the key of the object with the column name of the database (means column names == keys of the object).
 
-    values.push(valuesObj.emailId);
-    values.push(valuesObj.password);
-    values.push(valuesObj.firstName);
-    values.push(valuesObj.lastName);
+    let values=[valuesObj];
+
+    // let values=[];
+    // values.push(valuesObj.emailId);
+    // values.push(valuesObj.password);
+    // values.push(valuesObj.firstName);
+    // values.push(valuesObj.lastName);
 
     let queryResponse = await dbHandler.executeQuery(apiReference, "Fetch Credentials", query, values);
 

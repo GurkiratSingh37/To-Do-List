@@ -13,9 +13,9 @@ const register = async (req, res, next)=>{
     }
 
     let schema = Joi.object({
-        firstName   : Joi.string().required(),
-        lastName    : Joi.string().required(),
-        emailId     : Joi.string().required(),
+        first_name  : Joi.string().required(),
+        last_name   : Joi.string().required(),
+        email_id    : Joi.string().required(),
         password    : Joi.string().required()
     })
 

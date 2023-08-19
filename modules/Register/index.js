@@ -1,6 +1,6 @@
 'use strict';
 
-const regitserValidator = require('../Register/validators/registerValidator');
-const registerController = require('../Register/controllers/regiterController');
+const regitserValidator = require('./validators/registerValidator');
+const registerController = require('./controllers/registerController');
 
 router.post('/register', regitserValidator.register, registerController.register);

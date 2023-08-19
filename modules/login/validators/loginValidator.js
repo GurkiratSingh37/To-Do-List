@@ -13,7 +13,7 @@ const login = async(req, res, next)=>{
     }
 
     const schema = Joi.object({
-        emailId: Joi.string().email().required(),
+        email_id: Joi.string().email().required(),
         password: Joi.string().required()
     });
 

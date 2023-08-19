@@ -16,7 +16,7 @@ exports.register = async(apiReference, values)=>{
     // 1 - Check for duplicate email
 
     let fetchObj={
-        emailId:values.emailId
+        emailId:values.email_id
     }
 
     let fetchUserResponse = await registerDao.fetchDetails(apiReference, fetchObj);
@@ -40,7 +40,7 @@ exports.register = async(apiReference, values)=>{
         return response;
     }
 
-    sendingMails.sendingMails(values.emailId, values.firstName, values.lastName);
+    sendingMails.sendingMails(values.email_id, values.first_name, values.last_name);
     
     response.success = true;
     return response;

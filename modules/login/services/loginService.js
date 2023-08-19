@@ -2,7 +2,7 @@
 
 const passwordService = require('../../../services/pwdServices');
 const logging = require('../../../logging/logging');
-const registerDao = require('../../Register/dao/registerDao');
+const registerDao = require('../../register/dao/registerDao');
 const constants = require('../../../responses/responseConstants');
 
 const loginDao = require('../dao/loginDao');
