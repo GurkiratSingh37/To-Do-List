@@ -16,13 +16,12 @@ exports.register = async(apiReference, values)=>{
     // 1 - Check for duplicate email
 
     let fetchObj={
-        emailId:values.email_id
+        email:values.email // to pass only email for query
     }
 
     let fetchUserResponse = await registerDao.fetchDetails(apiReference, fetchObj);
     logging.log(apiReference, { EVENT: "Fetch User Details", RESPONSE: fetchUserResponse });
 
-    console.log(fetchUserResponse.data[0].length)
     // 1.1 - if already present
     if(fetchUserResponse.data[0].length !== 0){
         response.error = constants.responseMessages.USER_ALREADY_REGISTERED;

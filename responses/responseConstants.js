@@ -12,7 +12,9 @@ exports.responseMessages = {
     USER_ALREADY_REGISTERED: "User already registered with us. Try signing in",
     REGISTER_SUCCESS            : "User registered successfully",
     INVALID_CREDENTIALS         : "Invalid Credentials!",
-    INVALID_AUTH_KEY            : "Invalid Token!"
+    INVALID_AUTH_KEY            : "Invalid Token!",
+    USER_NOT_FOUND              : "User not registered with us",
+    USER_INACTIVE               : "This User is not active or blocked by admin. Please contact admin."
 }
 
 exports.responseStatus = {

@@ -7,10 +7,8 @@ exports.fetchDetails = async(apiReference, valuesObj) =>{
     let response = {success: false};
     logging.log(apiReference, {"EVENT" : "fetchDetails DAO", valuesObj});
 
-    let query = `SELECT * FROM users WHERE email_id = ?`;
-    let values=[];
-
-    values.push(valuesObj.emailId);
+    let query = `SELECT * FROM users WHERE ?`;
+    let values=[valuesObj];
 
     let queryResponse = await dbHandler.executeQuery(apiReference, "Fetch Credentials", query, values);
 

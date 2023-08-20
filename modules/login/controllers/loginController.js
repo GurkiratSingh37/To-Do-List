@@ -15,6 +15,8 @@ exports.login = async (req, res, next)=>{
         if(response.success){
             return responses.success(res, response.data);
         }
+
+        return responses.failure(res, response.data || {}, response.error);
     }
     catch(error){
         console.log(error);

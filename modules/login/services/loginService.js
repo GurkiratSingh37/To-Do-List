@@ -3,7 +3,9 @@
 const passwordService = require('../../../services/pwdServices');
 const logging = require('../../../logging/logging');
 const registerDao = require('../../register/dao/registerDao');
+
 const constants = require('../../../responses/responseConstants');
+const responses = require('../../../responses/responses');
 
 const loginDao = require('../dao/loginDao');
 const loginTokenService = require('../services/loginTokenService');
@@ -14,16 +16,30 @@ exports.login = async(apiReference, values)=>{
     let response = {success: false};
     logging.log(apiReference, { EVENT: "Login User Service", OPTS: values });
 
-    let loginInfo = await registerDao.fetchDetails(apiReference, values);
+    // 1. Checking for duplicate user.
+    const queryValues={email: values.email}; // to pass only email for query
+
+    let loginInfo = await registerDao.fetchDetails(apiReference, queryValues);
 
     if (!loginInfo.success) {
         return loginInfo;
     }
 
-    loginInfo = loginInfo.data[0][0];
-    // console.log(loginInfo);
+    // Not Found!
+    if(_.isEmpty(loginInfo.data[0])){
+        response.error = constants.responseMessages.USER_NOT_FOUND;
+        return response;
+    }
 
-    const passwordComparison = await passwordService.compare(values.password, loginInfo.USER_PASSWORD);
+    loginInfo = loginInfo.data[0][0];
+    console.log(loginInfo);
+
+    if(loginInfo.activity_status_code == 90){
+        response.error = constants.responseMessages.USER_INACTIVE;
+        return response;
+    }
+
+    const passwordComparison = await passwordService.compare(values.password, loginInfo.password);
 
     if(!passwordComparison){
         response.error = constants.responseMessages.INVALID_CREDENTIALS;
