@@ -1,5 +1,3 @@
-
-
 const mailContent = (name)=>{
     return `<!DOCTYPE html>
         <html>

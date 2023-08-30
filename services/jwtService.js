@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken');
 const logging = require("../logging/logging");
 
-const key = 'secret';
+const key = 'zmqBdy5UmQe4DMhuOnTcTBA';
 
 const createJWT = (apiReference, opts, expiryTime)=>{
     logging.log(apiReference, {

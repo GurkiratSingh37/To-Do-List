@@ -21,6 +21,8 @@ exports.login = async(apiReference, values)=>{
 
     let loginInfo = await registerDao.fetchDetails(apiReference, queryValues);
 
+    console.log(loginInfo.data[0]);
+
     if (!loginInfo.success) {
         return loginInfo;
     }
@@ -63,8 +65,8 @@ exports.createJwtToken = async(apiReference, userDetails, time)=>{
     logging.log(apiReference, { EVENT: "createJwtToken service", userDetails, time });
     let response = {success: false};
 
-    let tokenKey=userDetails.USER_EMAIL_ID;
-
+    let tokenKey=userDetails.email;
+    console.log(tokenKey);
     let tokenResponse = await loginTokenService.setupJwtToken(apiReference, { fetchResponse: userDetails, tokenKey}, time);
 
     response.success = true;

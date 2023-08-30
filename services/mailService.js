@@ -15,7 +15,7 @@ exports.sendingMails = async(emailId, firstName, lastName)=>{
         }
     })
 
-    const name=firstName+" "+lastName;
+    const name=`${firstName} ${lastName}`;
 
     const send = await transporter.sendMail({
         from: mailProp.mailFrom,
@@ -24,5 +24,3 @@ exports.sendingMails = async(emailId, firstName, lastName)=>{
         html: content(name)
     })
 }
-
-
