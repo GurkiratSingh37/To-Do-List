@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
 const logging = require('../logging/logging');
+const responses = require('../responses/responses');
 
 const joiValidate = async(apiReference, body, schema, res) => {
     logging.log(apiReference, {EVENT: 'validateFields', BODY: body})
@@ -13,7 +14,8 @@ const joiValidate = async(apiReference, body, schema, res) => {
     }
     catch(error){
         logging.logError(apiReference, error);
-        return false;
+        responses.validationMissingParameterError(res, error.details[0].message);
+        return false; // idk why it's here to be honest.
     }
 }
 

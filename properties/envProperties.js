@@ -8,3 +8,5 @@ exports.mailPort = config.get('mailSettings.port');
 exports.mailUser = config.get('mailSettings.auth.user');
 exports.mailPass = config.get('mailSettings.auth.pass');
 exports.mailFrom = config.get('mailSettings.from');
+
+exports.microserviceAuthToken = process.env.MICROSERVICE_AUTH_TOKEN || config.get('microserviceAuthToken');

@@ -15,7 +15,7 @@ const register = async (req, res, next)=>{
     let schema = Joi.object({
         first_name  : Joi.string().required(),
         last_name   : Joi.string().required(),
-        email    : Joi.string().required(),
+        email       : Joi.string().required(),
         password    : Joi.string().required()
     })
 
@@ -26,6 +26,8 @@ const register = async (req, res, next)=>{
     if(validFields){
         next();
     }
+
+    return 
 }
 
 exports.register = register;
