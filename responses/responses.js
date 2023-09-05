@@ -2,6 +2,15 @@
 
 const responseConstants = require('./responseConstants');
 
+const validationMissingParameterError = (res, data, message)=>{
+    let response = {
+        message: message || responseConstants.responseMessages.MISSING_PARAMETER,
+        status: responseConstants.responseStatus.BAD_REQUEST,
+        data: data || {}
+    }
+    this.sendResponse(res, response);
+}
+
 const success = (res, data, message) =>{
     let response = {
         message : message || responseConstants.responseMessages.SUCCESS,
@@ -39,8 +48,19 @@ const sendResponse = (res, data)=>{
     res.status(data.status).send(response);
 }
 
+const alreadyExists=(res, data)=>{
+    let response = {
+        message: responseConstants.responseMessages.ALREADY_EXISTS,
+        status: responseConstants.responseStatus.CONFLICT,
+        data: data || {}
+    };
+    this.sendResponse(res, response);
+}
 
-exports.success                   = success;
-exports.failure                   = failure;
-exports.sendResponse              = sendResponse;
-exports.invalidAuthKey            = invalidAuthKey;
+
+exports.success                         = success;
+exports.failure                         = failure;
+exports.sendResponse                    = sendResponse;
+exports.invalidAuthKey                  = invalidAuthKey;
+exports.alreadyExists                   = alreadyExists;
+exports.validationMissingParameterError = validationMissingParameterError;
