@@ -3,55 +3,58 @@
 const logging = require('../../../logging/logging');
 const dbHandler = require('../../../database/mysqllib');
 
-exports.fetchDetails = async(apiReference, valuesObj) =>{
+exports.fetchDetails = async(apiReference, opts) =>{
     let response = {success: false};
-    logging.log(apiReference, {"EVENT" : "fetchDetails DAO", valuesObj});
+    logging.log(apiReference, {"EVENT" : "fetchDetails DAO", OPTS: opts});
 
-    let query = `SELECT * FROM users WHERE ?`;
-    let values=[valuesObj];
+    let columns = opts.columns || "u.id, u.email, u.password";
+
+    let joinString = "";
+
+    let query = `SELECT ${columns} FROM todo_users u ${joinString} WHERE u.activity_status__code = '30'`;
+    
+    let values=[];
+    if(opts.email){
+      query+=` AND u.email = ?`
+      values.push(opts.email);
+    }
 
     let queryResponse = await dbHandler.executeQuery(apiReference, "Fetch Credentials", query, values);
 
     if (queryResponse.ERROR){
+      if(queryResponse.ERROR=="ER_DUP_ENTRY"){
         response.success = false;
         response.error   = queryResponse.ERROR;
-        return response;
+        
       }
+      return response;
+    }
     
       response.success = true;
       response.data    = queryResponse;
       return response;
 }
 
-exports.register = async(apiReference, valuesObj) => {
+exports.register = async(apiReference, opts, table) => {
     let response = {success: false};
-    logging.log(apiReference, {"EVENT" : "insertDetails DAO", valuesObj});
+    logging.log(apiReference, {"EVENT" : "insertDetails DAO", opts});
 
-    console.log('');
+    let query = `INSERT INTO ${table || 'todo_users'} SET ?`;
 
-    let query = `INSERT INTO users SET ?`;
-    
-    
-    /** let values = Object.values(valuesObj); */ // Can use this but the ordering should be right in the database
-    // OR i can map the key of the object with the column name of the database (means column names == keys of the object).
-
-    let values=[valuesObj];
-
-    // let values=[];
-    // values.push(valuesObj.emailId);
-    // values.push(valuesObj.password);
-    // values.push(valuesObj.firstName);
-    // values.push(valuesObj.lastName);
+    let values=[opts];
 
     let queryResponse = await dbHandler.executeQuery(apiReference, "Fetch Credentials", query, values);
 
     if (queryResponse.ERROR){
+      if(queryResponse.ERROR=="ER_DUP_ENTRY"){
         response.success = false;
         response.error   = queryResponse.ERROR;
-        return response;
+        
       }
-    
-      response.success = true;
-      response.data    = queryResponse;
       return response;
+    }
+    
+    response.success = true;
+    response.data    = queryResponse;
+    return response;
 }

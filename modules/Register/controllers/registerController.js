@@ -14,9 +14,14 @@ exports.register = async (req, res, next)=>{
 
         logging.log(apiReference, { serviceResponse: response});
 
+        if(response.is_duplicate){
+            return responses.alreadyExists(res);
+        }
+
         if(response.success){
             return responses.success(res, response.data, constants.responseMessages.REGISTER_SUCCESS);
         }
+        
         return responses.failure(res, {}, response.error);
     }
     catch(error){

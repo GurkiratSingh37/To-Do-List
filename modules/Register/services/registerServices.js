@@ -15,21 +15,26 @@ exports.register = async(apiReference, values)=>{
 
     // 1 - Check for duplicate email
 
-    let fetchObj={
-        email:values.email // to pass only email for query
-    }
-
-    let fetchUserResponse = await registerDao.fetchDetails(apiReference, fetchObj);
+    let fetchUserResponse = await registerDao.fetchDetails(apiReference, values);
     logging.log(apiReference, { EVENT: "Fetch User Details", RESPONSE: fetchUserResponse });
 
+    if(!fetchUserResponse.success){
+        return fetchUserResponse;
+    }
+
+    console.log(fetchUserResponse.data[0]);
+    
     // 1.1 - if already present
-    if(fetchUserResponse.data[0].length !== 0){
+    if(!_.isEmpty(fetchUserResponse.data[0])){
         response.error = constants.responseMessages.USER_ALREADY_REGISTERED;
         return response;
     }
 
     // 2 - Encrypting password
-    values.password = passwordService.encrypt(values.password);
+
+    if(values.password){
+        values.password = passwordService.encrypt(values.password);
+    }
 
     const insertDaoResponse = await registerDao.register(apiReference, values);
     logging.log(apiReference, {EVENT: "Insert User Details", RESPONSE: insertDaoResponse});
@@ -39,7 +44,7 @@ exports.register = async(apiReference, values)=>{
         return response;
     }
 
-    sendingMails.sendingMails(values.email_id, values.first_name, values.last_name);
+    // sendingMails.sendingMails(values.email_id, values.first_name, values.last_name);
     
     response.success = true;
     return response;

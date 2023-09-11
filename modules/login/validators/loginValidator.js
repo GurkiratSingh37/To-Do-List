@@ -6,10 +6,10 @@ const validators = require('../../../validators/joiValidators');
 const constants = require('../../../responses/responseConstants');
 const moduleReference = constants.modules.LOGIN;
 
-const login = async(req, res, next)=>{
+const loginWithPassword = async(req, res, next)=>{
     req.apiReference = {
         module: moduleReference,
-        api: 'login'
+        api: 'loginWithPassword'
     }
 
     const schema = Joi.object({
@@ -28,4 +28,19 @@ const login = async(req, res, next)=>{
 
 }
 
-exports.login = login;
+const sendOtp = (req, res, next)=>{
+    req.apiReference = {
+        module: constants.modules.LOGIN,
+        api: 'sendOtp'
+    }
+
+    let reqBody = {...req.body};
+
+    const schema = Joi.object({
+        country_code: Joi.string().required(),
+        phone_number: Joi.string().required()
+    })
+}
+
+exports.loginWithPassword = loginWithPassword;
+exports.sendOtp = sendOtp;

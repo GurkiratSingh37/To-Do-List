@@ -3,4 +3,6 @@
 const loginValidator = require('./validators/loginValidator');
 const loginController = require('./controllers/loginController');
 
-router.post('/login', loginValidator.login, loginController.login);
+router.post('/user/loginWithPassword', loginValidator.loginWithPassword, loginController.loginWithPassword);
+
+roouter.post('/user/sendOtp', loginValidator.sendOtp, loginController.sendOtp);
